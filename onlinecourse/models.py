@@ -65,7 +65,7 @@ class Course(models.Model):
 
     def __str__(self):
         return "Name: " + self.name + "," + \
-               "Description: " + self.description
+               " Description: " + self.description
 
 
 # Lesson model
@@ -93,6 +93,13 @@ class Enrollment(models.Model):
     date_enrolled = models.DateField(default=now)
     mode = models.CharField(max_length=5, choices=COURSE_MODES, default=AUDIT)
     rating = models.FloatField(default=5.0)
+
+    def __str__(self):
+        print("~~ Enrollment")
+        print("id =", self.id)
+        print("user =", self.user)
+        print("course =", self.course)
+        return ""
 
 
 # <HINT> Create a Question Model with:
@@ -127,7 +134,7 @@ class Question(models.Model):
     # Other fields and methods you would like to design
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(null=False, max_length=30, default='choice text')
+    choice_text = models.CharField(null=False, max_length=100, default='choice text')
     is_correct = models.BooleanField(default=False)
 
 # <HINT> The submission model
@@ -138,3 +145,8 @@ class Submission(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
     choices = models.ManyToManyField(Choice)
     # Other fields and methods you would like to design
+
+    def __str__(self):
+        print("~~ Submission")
+        print("enrollment_id =", self.enrollment_id)
+        return ""
